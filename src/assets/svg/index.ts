@@ -8,7 +8,8 @@ import Vite from "./vite.svg";
 import Nextjs from "./nextjs.svg";
 import Nodejs from "./nodejs.svg";
 import WxMiniapp from "./wx-miniapp.svg";
-
+import Project from "./project.svg";
+import Time from "./time.svg";
 export {
   Html,
   Css,
@@ -20,4 +21,6 @@ export {
   Nextjs,
   Nodejs,
   WxMiniapp,
+  Project,
+  Time
 };

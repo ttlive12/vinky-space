@@ -3,15 +3,46 @@
 import Logo from "@/assets/image/logo.png";
 import { useSpring, animated } from "@react-spring/web";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const list = [
   { name: "Home", link: "/", container: "#home" },
   { name: "Skills", link: "/", container: "#skills" },
-  { name: "Experience", link: "/", container: "#skills" },
+  { name: "Experience", link: "/", container: "#experience" },
 ];
 const links = [{ name: "VGPT", link: "/" }];
 const Navbar = () => {
+  const [activeSection, setActiveSection] = useState("home");
+  useEffect(() => {
+    const handleIntersection = (entries: any) => {
+      entries.forEach((entry: any) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.5, // 可见度超过50%时触发
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+
+    // 对每个部分进行观察
+    list.forEach((item) => {
+      const element = document.querySelector(item.container);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      observer.disconnect(); // 清除观察者
+    };
+  }, []);
+
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
@@ -56,7 +87,8 @@ const Navbar = () => {
       >
         {list.map((item) => (
           <div
-            className="group px-4 py-4 rounded-full flex justify-center items-center lg:hover:text-black lg:hover:bg-green-200 transition-colors"
+            className={`group px-4 py-4 rounded-full flex justify-center items-center hover:text-white lg:hover:-translate-y-1 transition-all 
+            ${item.container.includes(activeSection) ? "text-white" : ""}`}
             key={item.name}
             onClick={() => {
               const target = document.querySelector(item.container)!;
@@ -69,7 +101,7 @@ const Navbar = () => {
         <span>|</span>
         {links.map((item) => (
           <div
-            className="group w-[40px] px-10 py-4 rounded-full flex justify-center items-center lg:hover:text-black lg:hover:bg-green-200 transition-colors"
+            className="group w-[40px] px-10 py-4 rounded-full flex justify-center items-center hover:text-white lg:hover:-translate-y-1 transition-all"
             key={item.name}
           >
             {item.name}
@@ -78,7 +110,7 @@ const Navbar = () => {
       </div>
       <div
         className="box bg-black group absolute lg:right-[20px] rounded-full py-[8px] pr-[8px] pl-[24px] flex justify-between items-center border-1 border-gray-700 gap-6 hover:bg-white transition-all
-        scale-90 lg:scale-100 right-[5px]
+        scale-90 lg:scale-100 right-0
         "
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -97,7 +129,7 @@ const Navbar = () => {
             Available for new Projects.
           </div>
         </div>
-        <div className="rounded-full bg-white text-black content-center py-3 px-8 font-bold group-hover:invert">
+        <div className="rounded-full bg-white text-black content-center py-3 px-4 lg:px-8 font-bold group-hover:invert">
           Contact
         </div>
       </div>

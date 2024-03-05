@@ -40,11 +40,16 @@ const config: Config = {
           "0": { transform: "scale(0)" },
           "100%": { transform: "scale(100%)" },
         },
+        rotate360: {
+          "0": { transform: "rotate(0)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         scroll1: "scroll1 6s ease infinite",
         scroll2: "scroll2 6s ease infinite",
         scaleOut: "scaleOut 1s ease",
+        rotate360: "rotate360 0.6s ease"
       },
     },
   },

@@ -138,7 +138,7 @@ const Skills = () => {
       id="skills"
     >
       <div
-        className="relative overflow-hidden h-[30rem] w-full pt-20 flex justify-center"
+        className="relative overflow-hidden h-[30rem] w-full pt-20 flex justify-center cursor-grab"
         ref={ref}
         {...bind()}
         onTouchStart={handleTouchStart}
@@ -170,9 +170,9 @@ const Skills = () => {
         </animated.div>
       </div>
       <div
-        className={`relative z-5 h-[40vw] w-[40vw] sm:w-[24vw] sm:h-[24vw] md:w-[16vw] md:h-[16vw] rounded-full bottom-[6rem] transition-transform ${
-          isDragging && "scale-75"
-        }`}
+        className={`relative z-5 h-[40vw] w-[40vw] sm:w-[24vw] sm:h-[24vw] md:w-[16vw] md:h-[16vw] rounded-full bottom-[6rem] transition-transform 
+        before:absolute before:block before:w-[100vw] before:h-[35vh] before:left-[-30vw] before:bottom-0
+        ${isDragging && "scale-75"}`}
         style={{
           background: "linear-gradient(113deg,#d7ffcf 11.44%,#a4e141 60.27%)",
           boxShadow:
