@@ -1,75 +1,68 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useGesture } from "react-use-gesture";
 import { useSpring, animated, useInView } from "@react-spring/web";
-import { CardList } from "./constant";
+import { CardList, ListLength } from "./constant";
 import dynamic from "next/dynamic";
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
+const snapToRotation = (currentRotation: number) => {
+  const snapAngle = 360 / ListLength;
+  const snappedRotation = Math.round(currentRotation / snapAngle) * snapAngle;
+  return snappedRotation;
+};
 const Card = dynamic(() => import("./Card"), {
   ssr: false,
 });
 const Skills = () => {
   const [windowWidth, setWindowWidth] = useState(0);
   const [circleSize, setCircleSize] = useState(200);
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-      setCircleSize(Math.min(Math.max(window.innerWidth / 1.88, 677), 820));
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   const [isDragging, setIsDragging] = useState(0);
-  const list = CardList.map((_, i, o) => {
-    const angle = (i * Math.PI * 2) / o.length; // 每个点的角度
-    const x = circleSize / 2 + (circleSize / 2) * Math.cos(angle); // 计算X坐标
-    const y = circleSize / 2 + (circleSize / 2) * Math.sin(angle); // 计算Y坐标
-    return { ..._, x, y };
-  });
-  const snapToRotation = (currentRotation: number) => {
-    const snapAngle = 360 / list.length;
-    const snappedRotation = Math.round(currentRotation / snapAngle) * snapAngle;
-    return snappedRotation;
-  };
   const [rotation, setRotation] = useState(-72);
   const [currentIndex, setCurrentIndex] = useState(5);
   const [{ rotate }, setRotate] = useSpring(() => ({ rotate: -72 }));
   const [textSprings, textApi] = useSpring(() => ({
     from: { y: 0, opacity: 1, x: "-50%" },
   }));
+  const [ref, inView] = useInView({
+    once: true,
+  });
+  const startX = useRef<number | null>(null);
+
+  const list = CardList.map((_, i, o) => {
+    const angle = (i * Math.PI * 2) / ListLength; // 每个点的角度
+    const x = circleSize / 2 + (circleSize / 2) * Math.cos(angle); // 计算X坐标
+    const y = circleSize / 2 + (circleSize / 2) * Math.sin(angle); // 计算Y坐标
+    return { ..._, x, y };
+  });
 
   // 移动端拖动适配
-  const [startX, setStartX] = useState<null | number>(null);
   const handleTouchStart = (event: any) => {
-    // event.preventDefault(); // 防止默认触摸滚动行为
     const touch = event.touches[0];
-    setStartX(touch.clientX);
+    startX.current = touch.clientX;
   };
-
-  const handleTouchMove = (event: any) => {
-    // event.preventDefault(); // 防止默认触摸滚动行为
-    if (!startX) return;
-    const touch = event.touches[0];
-    const moveX = touch.clientX;
-    const deltaX = moveX - startX;
-    const newRotation = rotation + deltaX / (windowWidth * 0.02);
-    setRotation(newRotation);
-    setRotate({ rotate: newRotation });
-    setStartX(moveX);
-  };
-
+  const handleTouchMove = useCallback(
+    (event: any) => {
+      event.preventDefault();
+      if (!startX) return;
+      const touch = event.touches[0];
+      const moveX = touch.clientX;
+      const deltaX = moveX - (startX.current ?? 0);
+      const newRotation = rotation + deltaX / (windowWidth * 0.008);
+      setRotation(newRotation);
+      setRotate({ rotate: newRotation });
+      startX.current = moveX;
+    },
+    [rotation, setRotate, startX, windowWidth]
+  );
   const handleTouchEnd = () => {
     const snappedRotation = snapToRotation(rotation);
     setRotation(snappedRotation);
     setRotate({ rotate: snappedRotation });
-    setStartX(null);
+    startX.current = null;
   };
 
   const bind = useGesture({
@@ -97,10 +90,6 @@ const Skills = () => {
     },
   });
 
-  const [ref, inView] = useInView({
-    once: true,
-  });
-
   useEffect(() => {
     const arr1 = [0, 9, 8, 7, 6, 5, 4, 3, 2, 1];
     const arr2 = [5, 6, 7, 8, 9, 0, 1, 2, 3, 4];
@@ -126,6 +115,23 @@ const Skills = () => {
     }
   }, [inView, setRotate]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      setCircleSize(Math.min(Math.max(window.innerWidth / 1.88, 677), 820));
+    };
+    handleResize();
+    ref.current.addEventListener("touchmove", handleTouchMove, {
+      passive: false,
+    });
+    window.addEventListener("resize", handleResize);
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      ref.current.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleTouchMove, ref]);
+
   return (
     <section
       className="w-full h-[100vh] flex items-center justify-center flex-col"
@@ -136,7 +142,6 @@ const Skills = () => {
         ref={ref}
         {...bind()}
         onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
         <animated.div
@@ -165,7 +170,7 @@ const Skills = () => {
         </animated.div>
       </div>
       <div
-        className={`relative z-10 h-[40vw] w-[40vw] sm:w-[24vw] sm:h-[24vw] md:w-[16vw] md:h-[16vw] rounded-full bottom-[6rem] transition-transform ${
+        className={`relative z-5 h-[40vw] w-[40vw] sm:w-[24vw] sm:h-[24vw] md:w-[16vw] md:h-[16vw] rounded-full bottom-[6rem] transition-transform ${
           isDragging && "scale-75"
         }`}
         style={{

@@ -43,7 +43,7 @@ const Navbar = () => {
     },
   });
   return (
-    <div className="navbar-container flex fixed top-[20px] items-center h-[52px] w-full">
+    <div className="navbar-container flex fixed top-[20px] items-center h-[52px] w-full z-10">
       <div className="logo absolute left-[20px] w-[90px]">
         <Image src={Logo} alt="" width={50} />
       </div>
