@@ -38,9 +38,9 @@ const Skills = () => {
     const snappedRotation = Math.round(currentRotation / snapAngle) * snapAngle;
     return snappedRotation;
   };
-  const [rotation, setRotation] = useState(-180);
+  const [rotation, setRotation] = useState(-72);
   const [currentIndex, setCurrentIndex] = useState(5);
-  const [{ rotate }, setRotate] = useSpring(() => ({ rotate: -180 }));
+  const [{ rotate }, setRotate] = useSpring(() => ({ rotate: -72 }));
   const [textSprings, textApi] = useSpring(() => ({
     from: { y: 0, opacity: 1, x: "-50%" },
   }));
