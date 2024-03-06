@@ -87,7 +87,7 @@ const Navbar = () => {
       >
         {list.map((item) => (
           <div
-            className={`group px-4 py-4 rounded-full flex justify-center items-center hover:text-white lg:hover:-translate-y-1 transition-all 
+            className={`group px-4 py-4 rounded-full flex justify-center items-center hover:text-white lg:hover:-translate-y-1 transition-all cursor-pointer
             ${item.container.includes(activeSection) ? "text-white" : ""}`}
             key={item.name}
             onClick={() => {
@@ -101,7 +101,7 @@ const Navbar = () => {
         <span>|</span>
         {links.map((item) => (
           <div
-            className="group w-[40px] px-10 py-4 rounded-full flex justify-center items-center hover:text-white lg:hover:-translate-y-1 transition-all"
+            className="group w-[40px] px-10 py-4 rounded-full flex justify-center items-center hover:text-white lg:hover:-translate-y-1 transition-all cursor-pointer"
             key={item.name}
           >
             {item.name}
@@ -116,7 +116,7 @@ const Navbar = () => {
         onMouseLeave={() => setIsHovered(false)}
         onMouseMove={(e) => setMousePosition({ x: e.clientX, y: e.clientY })}
       >
-        <div className="w-min flex justify-between whitespace-pre items-center gap-3">
+        <div className="w-min flex justify-between whitespace-pre items-center gap-3 cursor-pointer">
           <div className="flex content-center">
             <div className="relative w-[20px] h-[20px] bg-green-400 rounded-full">
               <animated.div
@@ -129,7 +129,7 @@ const Navbar = () => {
             Available for new Projects.
           </div>
         </div>
-        <div className="rounded-full bg-white text-black content-center py-3 px-4 lg:px-8 font-bold group-hover:invert">
+        <div className="rounded-full bg-white text-black content-center py-3 px-4 lg:px-8 font-bold group-hover:invert cursor-pointer">
           Contact
         </div>
       </div>
