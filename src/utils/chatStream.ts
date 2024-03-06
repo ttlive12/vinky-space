@@ -14,11 +14,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 
   const requestHeaders: Record<string, string> = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ''}`,
-  }
-
-  if (process.env.OPENAI_API_ORG) {
-    requestHeaders['OpenAI-Organization'] = process.env.OPENAI_API_ORG
+    Authorization: `Bearer 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`,
   }
 
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
