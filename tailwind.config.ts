@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-// @ts-ignore
 import { nextui } from "@nextui-org/react";
 
 const config: Config = {
@@ -11,6 +10,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      height: {
+        w: "",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -49,7 +51,7 @@ const config: Config = {
         scroll1: "scroll1 6s ease infinite",
         scroll2: "scroll2 6s ease infinite",
         scaleOut: "scaleOut 1s ease",
-        rotate360: "rotate360 0.6s ease"
+        rotate360: "rotate360 0.6s ease",
       },
     },
   },

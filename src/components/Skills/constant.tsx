@@ -11,6 +11,17 @@ import {
   WxMiniapp,
 } from "@/assets/svg";
 
+export type CardType = {
+  name: string;
+  description: string;
+  image: React.ReactNode
+}
+
+export type Point = {
+  x: number;
+  y: number;
+}
+
 export const CardList = [
   {
     name: "Webpack",

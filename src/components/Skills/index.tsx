@@ -1,6 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  TouchEvent,
+  TouchEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useGesture } from "react-use-gesture";
 import { useSpring, animated, useInView } from "@react-spring/web";
 import { CardList, ListLength } from "./constant";
@@ -14,7 +21,7 @@ const snapToRotation = (currentRotation: number) => {
   const snappedRotation = Math.round(currentRotation / snapAngle) * snapAngle;
   return snappedRotation;
 };
-const Card = dynamic(() => import("./Card"), {
+const Card = dynamic(() => import("./card"), {
   ssr: false,
 });
 const Skills = () => {
@@ -40,12 +47,14 @@ const Skills = () => {
   });
 
   // 移动端拖动适配
-  const handleTouchStart = (event: any) => {
+  const handleTouchStart: TouchEventHandler<HTMLDivElement> = (
+    event: TouchEvent<HTMLDivElement>
+  ) => {
     const touch = event.touches[0];
     startX.current = touch.clientX;
   };
   const handleTouchMove = useCallback(
-    (event: any) => {
+    (event: TouchEvent) => {
       event.preventDefault();
       if (!startX) return;
       const touch = event.touches[0];
@@ -126,8 +135,10 @@ const Skills = () => {
     });
     window.addEventListener("resize", handleResize);
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      ref.current.removeEventListener("touchmove", handleTouchMove);
+      if (ref?.current?.removeEventListener) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        ref.current.removeEventListener("touchmove", handleTouchMove);
+      }
       window.removeEventListener("resize", handleResize);
     };
   }, [handleTouchMove, ref]);
@@ -170,7 +181,7 @@ const Skills = () => {
         </animated.div>
       </div>
       <div
-        className={`relative z-5 h-[40vw] w-[40vw] sm:w-[24vw] sm:h-[24vw] md:w-[16vw] md:h-[16vw] rounded-full bottom-[6rem] transition-transform 
+        className={`relative z-0 h-[40vw] w-[40vw] sm:w-[24vw] sm:h-[24vw] md:w-[16vw] md:h-[16vw] rounded-full bottom-[6rem] transition-transform 
         before:absolute before:block before:w-[100vw] before:h-[35vh] before:left-[-30vw] before:bottom-0
         ${isDragging && "scale-75"}`}
         style={{

@@ -17,6 +17,7 @@ const ParticlesComp = () => {
 
   const options: ISourceOptions = useMemo(
     () => ({
+      zLayers: 10,
       fpsLimit: 120,
       interactivity: {
         events: {
@@ -57,7 +58,7 @@ const ParticlesComp = () => {
           density: {
             enable: true,
           },
-          value: 80,
+          value: 50,
         },
         opacity: {
           value: 0.5,

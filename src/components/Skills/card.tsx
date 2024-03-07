@@ -1,6 +1,14 @@
-import { ListLength } from "../constant";
+import { ListLength, CardList, Point, CardType } from "./constant";
 
-const Card = ({ item, i, cardSize }: any) => {
+const Card = ({
+  item,
+  i,
+  cardSize,
+}: {
+  item: CardType & Point;
+  i: number;
+  cardSize: number;
+}) => {
   return (
     <div
       key={item.name}

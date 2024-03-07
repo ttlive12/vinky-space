@@ -10,6 +10,9 @@ import Nodejs from "./nodejs.svg";
 import WxMiniapp from "./wx-miniapp.svg";
 import Project from "./project.svg";
 import Time from "./time.svg";
+import Up from "./up.svg";
+import Avatar from "./avatar.svg";
+import Menu from "./menu.svg";
 export {
   Html,
   Css,
@@ -22,5 +25,8 @@ export {
   Nodejs,
   WxMiniapp,
   Project,
-  Time
+  Time,
+  Up,
+  Avatar,
+  Menu,
 };

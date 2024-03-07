@@ -1,8 +1,9 @@
 import { Simonetta } from "@/font";
 import { Project, Time } from "@/assets/svg";
 import Lift from "@/components/Style/lift";
+import { Work } from "./constants";
 
-const Work = ({ work }: any) => {
+const Work = ({ work }: { work: Work }) => {
   return (
     <div className="group relative w-full h-fit py-12 lg:py-8 px-8 lg:px-0 flex lg:justify-between border-b-1 border-[hsla(0,0%,100%,.1)]">
       <div>
@@ -17,7 +18,7 @@ const Work = ({ work }: any) => {
           </Lift>
         </div>
         <p className="text-[1.2rem] leading-[1.8rem] tracking-wide font-serif flex items-center gap-3">
-          <Project className="min-w-[25px] max-w-[25px] min-h-[25px] max-h-[25px]" /> 
+          <Project className="min-w-[25px] max-w-[25px] min-h-[25px] max-h-[25px]" />
           {work.project.join(" ")}
         </p>
       </div>
