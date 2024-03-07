@@ -13,6 +13,7 @@ import Time from "./time.svg";
 import Up from "./up.svg";
 import Avatar from "./avatar.svg";
 import Menu from "./menu.svg";
+import Planet from './planet.svg'
 export {
   Html,
   Css,
@@ -29,4 +30,5 @@ export {
   Up,
   Avatar,
   Menu,
+  Planet
 };

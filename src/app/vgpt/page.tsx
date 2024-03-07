@@ -8,6 +8,7 @@ import {
   Spinner,
   Textarea,
   Avatar,
+  Tooltip,
 } from "@nextui-org/react";
 import { useChat } from "@/app/vgpt/use-chat";
 import { Menu, Up } from "@/assets/svg";
@@ -43,12 +44,17 @@ const Chat = () => {
             </div>
           </DropdownTrigger>
           <DropdownMenu aria-label="Static Actions">
-            <DropdownItem key="keep" onClick={handleNewChat}>
+            <DropdownItem
+              key="keep"
+              onClick={handleNewChat}
+              description="保存当前记录，创建新的聊天"
+            >
               新聊天
             </DropdownItem>
-            <DropdownItem key="list">聊天列表</DropdownItem>
+
+            <DropdownItem key="list">聊天记录列表</DropdownItem>
             <DropdownItem key="delete" className="text-danger" color="danger">
-              删除当前聊天
+              清空当前聊天记录
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
@@ -61,7 +67,12 @@ const Chat = () => {
           </div>
         )}
 
-        <div className="w-full h-[90%] overflow-scroll">
+        <div className="w-full h-[90%] overflow-scroll relative">
+          {messages.length === 0 && (
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[1.6rem] tracking-widest">
+              发送你的问题以开启一次对话
+            </div>
+          )}
           {messages.map((message, idx) => (
             <div className="flex flex-col gap-1 my-3" key={idx}>
               <div className="flex gap-[10px] items-center">

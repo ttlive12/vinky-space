@@ -16,9 +16,9 @@ export const getStorage = <T extends any>(
   type: "local" | "session" = "local"
 ): T => {
   if (type === "local") {
-    return JSON.parse(localStorage.getItem(key) ?? "");
+    return JSON.parse(localStorage.getItem(key) ?? "[]");
   } else if (type === "session") {
-    return JSON.parse(sessionStorage.getItem(key) ?? "");
+    return JSON.parse(sessionStorage.getItem(key) ?? "[]");
   }
   throw new Error("Invalid storage type");
 };

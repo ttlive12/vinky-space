@@ -12,10 +12,8 @@ import { useGesture } from "react-use-gesture";
 import { useSpring, animated, useInView } from "@react-spring/web";
 import { CardList, ListLength } from "./constant";
 import dynamic from "next/dynamic";
+import { sleep } from "@/utils/sleep";
 
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 const snapToRotation = (currentRotation: number) => {
   const snapAngle = 360 / ListLength;
   const snappedRotation = Math.round(currentRotation / snapAngle) * snapAngle;
@@ -39,7 +37,7 @@ const Skills = () => {
   });
   const startX = useRef<number | null>(null);
 
-  const list = CardList.map((_, i, o) => {
+  const list = CardList.map((_, i) => {
     const angle = (i * Math.PI * 2) / ListLength; // 每个点的角度
     const x = circleSize / 2 + (circleSize / 2) * Math.cos(angle); // 计算X坐标
     const y = circleSize / 2 + (circleSize / 2) * Math.sin(angle); // 计算Y坐标

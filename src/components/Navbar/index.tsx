@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-
 type Point = {
   x: number;
   y: number;
@@ -109,7 +108,7 @@ const Navbar = () => {
           <div
             className="group w-[40px] px-10 py-4 rounded-full flex justify-center items-center hover:text-white lg:hover:-translate-y-1 transition-all cursor-pointer"
             onClick={() => {
-              router.replace("/vgpt");
+              router.push("/vgpt");
             }}
             key={item.name}
           >
