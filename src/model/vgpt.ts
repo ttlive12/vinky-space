@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 export type ChatGPTAgent = "user" | "system" | "assistant";
 
@@ -9,8 +9,20 @@ export interface ChatGPTMessage {
 
 export type UseChatHelpers = {
   loading: boolean;
-  messages: ChatGPTMessage[];
   input: string;
+  chatList: ChatList;
+  setChatList: Dispatch<SetStateAction<ChatList>>;
+  selectedChatId: string;
+  setSelectedChatId: Dispatch<SetStateAction<string>>;
   setInput: Dispatch<SetStateAction<string>>;
-  sendMessage: () => void;
+  handleSendMessage: () => void;
+  handleUse: (id: string) => void;
+  handleNewChat: () => void;
+  handleDelete: () => void;
 };
+
+export type ChatList = {
+  id: string;
+  description: string;
+  data: ChatGPTMessage[];
+}[];

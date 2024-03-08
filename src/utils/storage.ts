@@ -13,12 +13,14 @@ export const setStorage = (
 
 export const getStorage = <T extends any>(
   key: string,
-  type: "local" | "session" = "local"
+  type: "local" | "session" = "local",
 ): T => {
   if (type === "local") {
-    return JSON.parse(localStorage.getItem(key) ?? "[]");
+    return JSON.parse(localStorage.getItem(key) ?? JSON.stringify([]));
   } else if (type === "session") {
-    return JSON.parse(sessionStorage.getItem(key) ?? "[]");
+    return JSON.parse(
+      sessionStorage.getItem(key) ?? JSON.stringify([])
+    );
   }
   throw new Error("Invalid storage type");
 };

@@ -3,7 +3,8 @@
 import Logo from "@/assets/image/logo.png";
 import { useSpring, animated } from "@react-spring/web";
 import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Point = {
@@ -21,7 +22,6 @@ const isHome = (pathName: string) => {
 };
 const Navbar = () => {
   const pathName = usePathname();
-  const router = useRouter();
   const [activeSection, setActiveSection] = useState("home");
   const [mousePosition, setMousePosition] = useState<Point>({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -79,7 +79,7 @@ const Navbar = () => {
     return () => {
       observer.disconnect(); // 清除观察者
     };
-  }, []);
+  }, [pathName]);
   return (
     <div className="navbar-container flex fixed top-[20px] items-center h-[52px] w-full z-40">
       <div className="logo absolute left-[20px] w-[90px]">
@@ -105,15 +105,13 @@ const Navbar = () => {
         ))}
         <span>|</span>
         {links.map((item) => (
-          <div
-            className="group w-[40px] px-10 py-4 rounded-full flex justify-center items-center hover:text-white lg:hover:-translate-y-1 transition-all cursor-pointer"
-            onClick={() => {
-              router.push("/vgpt");
-            }}
+          <Link
+            className="w-[40px] px-10 py-4 rounded-full flex justify-center items-center hover:text-white lg:hover:-translate-y-1 transition-all cursor-pointer no-underline hover:no-underline"
+            href={item.link}
             key={item.name}
           >
             {item.name}
-          </div>
+          </Link>
         ))}
       </div>
       <div

@@ -6,15 +6,15 @@ import { sleep } from "@/utils/sleep";
 const Loading = () => {
   const [leave, setLeave] = useState(false);
   const startTime = useRef<Date>(new Date());
+  const wait = async () => {
+    const endTime = new Date();
+    const diff = endTime.getTime() - startTime.current.getTime();
+    if (diff < 1000) {
+      await sleep(1000 - diff);
+    }
+    setLeave(true);
+  };
   useEffect(() => {
-    const wait = async () => {
-      const endTime = new Date();
-      const diff = endTime.getTime() - startTime.current.getTime();
-      if (diff < 1000) {
-        await sleep(1000 - diff);
-      }
-      setLeave(true);
-    };
     return () => {
       wait();
     };
