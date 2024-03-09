@@ -112,7 +112,7 @@ const Skills = () => {
   }, [rotation, textApi]);
   useEffect(() => {
     const sleepOneSecondAndReset = async () => {
-      await sleep(300);
+      await sleep(700);
       setRotation(0);
       setRotate({ rotate: 0 });
     };
@@ -180,7 +180,7 @@ const Skills = () => {
       </div>
       <div
         className={`relative z-0 h-[40vw] w-[40vw] sm:w-[24vw] sm:h-[24vw] md:w-[16vw] md:h-[16vw] rounded-full bottom-[6rem] transition-transform 
-        before:absolute before:block before:w-[100vw] before:h-[35vh] before:left-[-30vw] before:bottom-0
+        before:absolute before:block before:w-[100vw] before:h-[35vh] before:left-[-30vw] before:bottom-0 lg:before:w-[38vw] lg:before:left-[-10vw]
         ${isDragging && "scale-75"}`}
         style={{
           background: "linear-gradient(113deg,#d7ffcf 11.44%,#a4e141 60.27%)",

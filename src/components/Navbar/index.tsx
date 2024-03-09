@@ -5,7 +5,9 @@ import { useSpring, animated } from "@react-spring/web";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import NavbarContactContext from "../NavbarContactControl/context";
+import { Close } from "@/assets/svg";
 
 type Point = {
   x: number;
@@ -22,6 +24,7 @@ const isHome = (pathName: string) => {
 };
 const Navbar = () => {
   const pathName = usePathname();
+  const { openContact, setOpenContact } = useContext(NavbarContactContext);
   const [activeSection, setActiveSection] = useState("home");
   const [mousePosition, setMousePosition] = useState<Point>({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -81,13 +84,13 @@ const Navbar = () => {
     };
   }, [pathName]);
   return (
-    <div className="navbar-container flex fixed top-[20px] items-center h-[52px] w-full z-40">
+    <div className="navbar-container flex fixed top-[20px] items-center h-[52px] w-full z-[45]">
       <div className="logo absolute left-[20px] w-[90px]">
         <Image src={Logo} alt="" width={50} />
       </div>
       <div
-        className={`${isHome(pathName) ? "" : "hidden"}
-      fixed bottom-[20px] lg:top-[20px] bg-[#333333] border-1 border-gray-700 lg:left-[100px] lg:w-min h-[52px] rounded-full flex items-center text-[#AAAAAA] px-6 gap-2 left-[50%] -translate-x-1/2 lg:translate-x-0 text-[0.88rem]
+        className={`${!isHome(pathName) || openContact ? "opacity-0" : ""}
+      fixed bottom-[20px] lg:top-[20px] bg-[#333333] border-1 border-gray-700 lg:left-[100px] lg:w-min h-[52px] rounded-full flex items-center text-[#AAAAAA] px-6 gap-2 left-[50%] -translate-x-1/2 lg:translate-x-0 text-[0.88rem] transition-opacity
       `}
       >
         {list.map((item) => (
@@ -115,12 +118,15 @@ const Navbar = () => {
         ))}
       </div>
       <div
-        className="box bg-black group absolute lg:right-[20px] rounded-full py-[8px] pr-[8px] pl-[24px] flex justify-between items-center border-1 border-gray-700 gap-6 hover:bg-white transition-all
+        className={`${
+          openContact ? "opacity-0" : ""
+        } box bg-black group absolute lg:right-[20px] rounded-full py-[8px] pr-[8px] pl-[24px] flex justify-between items-center border-1 border-gray-700 gap-6 hover:bg-white transition-all
         scale-90 lg:scale-100 right-0
-        "
+        `}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onMouseMove={(e) => setMousePosition({ x: e.clientX, y: e.clientY })}
+        onClick={() => setOpenContact(true)}
       >
         <div className="w-min flex justify-between whitespace-pre items-center gap-3 cursor-pointer">
           <div className="flex content-center">
@@ -140,6 +146,14 @@ const Navbar = () => {
         <div className="rounded-full bg-white text-black content-center py-3 px-4 lg:px-8 font-bold group-hover:invert cursor-pointer">
           Contact
         </div>
+      </div>
+      <div
+        className={`${
+          openContact ? "scale-100" : "scale-0"
+        } absolute right-8 transition-transform`}
+        onClick={() => setOpenContact(false)}
+      >
+        <Close />
       </div>
     </div>
   );

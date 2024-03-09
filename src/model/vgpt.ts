@@ -11,12 +11,10 @@ export type UseChatHelpers = {
   loading: boolean;
   input: string;
   chatList: ChatList;
-  setChatList: Dispatch<SetStateAction<ChatList>>;
   selectedChatId: string;
   setSelectedChatId: Dispatch<SetStateAction<string>>;
   setInput: Dispatch<SetStateAction<string>>;
   handleSendMessage: () => void;
-  handleUse: (id: string) => void;
   handleNewChat: () => void;
   handleDelete: () => void;
 };

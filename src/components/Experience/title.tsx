@@ -14,6 +14,7 @@ const Title = () => {
         opacity: 1,
         y: 0,
       },
+      delay: 1000,
     }),
     {
       once: true,

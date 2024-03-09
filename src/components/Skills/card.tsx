@@ -1,4 +1,4 @@
-import { ListLength, CardList, Point, CardType } from "./constant";
+import { ListLength, Point, CardType } from "./constant";
 
 const Card = ({
   item,

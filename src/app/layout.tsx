@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Providers } from "./providers";
-import Navbar from "@/components/Navbar";
 import ParticlesComp from "@/components/Particles";
 import "./globals.css";
+import { Suspense } from "react";
+import NavbarContactControl from "@/components/NavbarContactControl";
 
 export const metadata: Metadata = {
   title: "Vinky",
@@ -18,8 +19,10 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body>
         <Providers>
-          <ParticlesComp />
-          <Navbar />
+          <Suspense>
+            <NavbarContactControl />
+            <ParticlesComp />
+          </Suspense>
           {children}
         </Providers>
       </body>

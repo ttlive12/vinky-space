@@ -124,12 +124,10 @@ export function useChat({ initialInput = "" } = {}): UseChatHelpers {
     loading,
     input,
     chatList,
-    setChatList,
     selectedChatId,
     setSelectedChatId,
     setInput,
     handleSendMessage,
-    handleUse,
     handleNewChat,
     handleDelete,
   };
