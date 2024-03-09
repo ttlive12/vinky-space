@@ -2,14 +2,12 @@
 
 import { useContext, useEffect, useState } from "react";
 import NavbarContactContext from "../NavbarContactControl/context";
-import { useSpring, animated, useInView } from "@react-spring/web";
+import { useSpring, animated } from "@react-spring/web";
 import { sleep } from "@/utils/sleep";
 import { Button, Input, Spacer, Textarea } from "@nextui-org/react";
 import { MedulaOne } from "@/font";
 import ContactImg from "@/assets/image/contact.png";
 import Image from "next/image";
-
-const AnimatedImage = animated(Image);
 
 const Contact = () => {
   const { openContact } = useContext(NavbarContactContext);
@@ -28,17 +26,6 @@ const Contact = () => {
       borderRadius: "3rem",
       y: "100%",
     },
-  }));
-  const [ref, upSprings] = useInView(() => ({
-    from: {
-      opacity: 0,
-      y: -100,
-    },
-    to: {
-      opacity: 1,
-      y: 0,
-    },
-    delay: 1000,
   }));
 
   useEffect(() => {
@@ -115,14 +102,7 @@ const Contact = () => {
           </Button>
         </div>
       </form>
-      <AnimatedImage
-        width={500}
-        height={400}
-        ref={ref}
-        style={upSprings}
-        alt=""
-        src={ContactImg}
-      />
+      <Image width={500} height={400} alt="" src={ContactImg} priority />
     </animated.div>
   );
 };
