@@ -19,10 +19,8 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body>
         <Providers>
-          <Suspense>
-            <NavbarContactControl />
-            <ParticlesComp />
-          </Suspense>
+          <NavbarContactControl />
+          <ParticlesComp />
           {children}
         </Providers>
       </body>

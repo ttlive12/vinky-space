@@ -1,11 +1,16 @@
 "use client";
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import NavbarContactContext from "../NavbarContactControl/context";
 import { useSpring, animated, useInView } from "@react-spring/web";
 import { sleep } from "@/utils/sleep";
-import { Button, Input, Textarea } from "@nextui-org/react";
+import { Button, Input, Spacer, Textarea } from "@nextui-org/react";
 import { MedulaOne } from "@/font";
+import ContactImg from "@/assets/image/contact.png";
+import Image from "next/image";
+
+const AnimatedImage = animated(Image);
+
 const Contact = () => {
   const { openContact } = useContext(NavbarContactContext);
   const [hidden, setHidden] = useState(true);
@@ -22,17 +27,14 @@ const Contact = () => {
     () => ({
       from: {
         opacity: 0,
-        y: 100,
+        y: -100,
       },
       to: {
         opacity: 1,
         y: 0,
       },
-      delay: 800,
-    }),
-    {
-      rootMargin: "-40% 0%",
-    }
+      delay: 1000,
+    })
   );
 
   const handleSend = () => {
@@ -66,18 +68,19 @@ const Contact = () => {
   }, [openContact, api]);
   return (
     <animated.div
-      className={`absolute z-40 light top-0 left-0 h-[100vh] w-[100vw] bg-[#F7F7F7] flex items-center justify-center flex-col gap-5 ${
+      className={`absolute z-40 light top-0 left-0 h-[100vh] w-[100vw] bg-[#F7F7F7] flex items-center justify-between flex-col gap-5 ${
         hidden ? "hidden" : ""
       }`}
       style={spring}
     >
+      <Spacer y={20} />
       <div
-        className={`${MedulaOne.className} text-[6rem] bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-cyan-500 mt-[80px] animate-backgroundScroll`}
+        className={`${MedulaOne.className} text-[6rem] bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-cyan-500 animate-backgroundScroll`}
       >
         CONTACT ME
       </div>
       <form
-        className="text-black font-sans flex flex-col gap-5"
+        className="text-black font-sans flex flex-col gap-5 px-10"
         onSubmit={(e) => {
           e.preventDefault();
           handleSend();
@@ -114,11 +117,14 @@ const Contact = () => {
           </Button>
         </div>
       </form>
-      <animated.div
+      <AnimatedImage
+        width={500}
+        height={400}
         ref={ref}
         style={upSprings}
-        className="w-full h-full flex items-center justify-center flex-col text-black bg-[url('https://i.postimg.cc/pXHg0dGX/contact.png')] bg-no-repeat bg-contain bg-bottom"
-      ></animated.div>
+        alt=""
+        src={ContactImg}
+      />
     </animated.div>
   );
 };

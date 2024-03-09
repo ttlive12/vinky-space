@@ -18,7 +18,6 @@ const Title = () => {
     }),
     {
       once: true,
-      rootMargin: "-40% 0%",
     }
   );
   return (
