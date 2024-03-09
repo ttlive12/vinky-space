@@ -56,14 +56,6 @@ const config: Config = {
             opacity: "1",
           },
         },
-        backgroundScroll: {
-          "0%": {
-            backgroundPosition: "0 0",
-          },
-          "100%": {
-            backgroundPosition: "100% 0",
-          },
-        },
       },
       animation: {
         scroll1: "scroll1 6s ease infinite",
@@ -71,7 +63,6 @@ const config: Config = {
         scaleOut: "scaleOut 1s ease",
         rotate360: "rotate360 0.6s ease",
         fadeDownIn: "fadeDownIn 0.6s ease",
-        backgroundScroll: "backgroundScroll 4s linear infinite",
       },
     },
   },

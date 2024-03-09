@@ -17,31 +17,29 @@ const Contact = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputName, setInputName] = useState("");
   const [inputContent, setInputContent] = useState("");
+  const handleSend = () => {
+    setInputEmail("");
+    setInputName("");
+    setInputContent("");
+  };
+
   const [spring, api] = useSpring(() => ({
     from: {
       borderRadius: "3rem",
       y: "100%",
     },
   }));
-  const [ref, upSprings] = useInView(
-    () => ({
-      from: {
-        opacity: 0,
-        y: -100,
-      },
-      to: {
-        opacity: 1,
-        y: 0,
-      },
-      delay: 1000,
-    })
-  );
-
-  const handleSend = () => {
-    setInputEmail("");
-    setInputName("");
-    setInputContent("");
-  };
+  const [ref, upSprings] = useInView(() => ({
+    from: {
+      opacity: 0,
+      y: -100,
+    },
+    to: {
+      opacity: 1,
+      y: 0,
+    },
+    delay: 1000,
+  }));
 
   useEffect(() => {
     const awaitHidden = async () => {
@@ -75,7 +73,7 @@ const Contact = () => {
     >
       <Spacer y={20} />
       <div
-        className={`${MedulaOne.className} text-[6rem] bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-cyan-500 animate-backgroundScroll`}
+        className={`${MedulaOne.className} text-[6rem] bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-sky-500 animate-right-move`}
       >
         CONTACT ME
       </div>
@@ -95,7 +93,7 @@ const Contact = () => {
             onValueChange={setInputName}
           />
           <Input
-            type="email"
+            type="text"
             variant="bordered"
             label="邮箱 / Email"
             value={inputEmail}

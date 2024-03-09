@@ -134,3 +134,17 @@ hr {
   border: none;
   height: 1px;
 }
+
+@keyframes rightMove {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
+.animate-right-move {
+  animation: rightMove 2s linear alternate infinite;
+  background-size: 200% auto;
+}

@@ -20,7 +20,9 @@ export default function RootLayout({
       <body>
         <Providers>
           <NavbarContactControl />
-          <ParticlesComp />
+          <Suspense>
+            <ParticlesComp />
+          </Suspense>
           {children}
         </Providers>
       </body>

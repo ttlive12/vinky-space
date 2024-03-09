@@ -86,7 +86,7 @@ const Navbar = () => {
   return (
     <div className="navbar-container flex fixed top-[20px] items-center h-[52px] w-full z-[45]">
       <div className="logo absolute left-[20px] w-[90px]">
-        <Image src={Logo} alt="" width={50} />
+        <Image src={Logo} alt="" width={50} priority />
       </div>
       <div
         className={`${!isHome(pathName) || openContact ? "opacity-0" : ""}
